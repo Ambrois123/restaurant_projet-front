@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300&family=Lora&family=Montserrat:wght@100;500;700&display=swap');
+
+:root{
+    --principal: #003837;
+    --secondary: #ffe093;
+    --btn_res: #a56b7f;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/*header starts*/
+.navbar{
+    width: 100%;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 15px;
+    background-color: var(--principal);
+    color: var(--secondary);
+    font-family: 'Montserrat', sans-serif;
+}
+    .nav-logo {
+        
+    }
+    .nav-items{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 700px;
+        list-style: none;
+    }
+        .nav-link a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-family: 'Montserrat', sans-serif;
+        }
+    .nav_btn_reservation {
+        border: none;
+        padding: 8px 15px;
+        color: var(--secondary);
+        background-color: var(--btn_res);
+        border: 1px solid var(--secondary);
+    }
+    .nav_btn_connexion{
+        border: none;
+        padding: 8px 15px;
+        background-color: var(--secondary);
+        border: 1px solid var(--btn_res);
+    }
