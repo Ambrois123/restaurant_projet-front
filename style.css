@@ -8,6 +8,7 @@
 *{
     padding: 0;
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
 /*header starts*/
@@ -39,14 +40,67 @@
         }
     .nav_btn_reservation {
         border: none;
-        padding: 8px 15px;
+        padding: 6px 12px 6px 12px;
         color: var(--secondary);
         background-color: var(--btn_res);
         border: 1px solid var(--secondary);
+        font-weight: bold;
     }
     .nav_btn_connexion{
         border: none;
-        padding: 8px 15px;
+        padding: 6px 12px 6px 12px;
         background-color: var(--secondary);
         border: 1px solid var(--btn_res);
+        font-weight: bold;
     }
+/*header ends*/
+
+/*footer starts*/
+footer{
+    width: 100%;
+    color: var(--secondary);
+    background-color: var(--principal);
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    bottom: 0;
+    position: fixed;
+}
+.footer_hour{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+    .footer_hour_title, 
+    .footer_media_title, 
+    .footer_adresse_title{
+        font-weight: bold;
+        border-bottom: 1px solid;
+    }
+.footer_media{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+    .footer_media_icons{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    .fa-brands{
+        color: var(--secondary);
+    }
+.footer_adresse{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+/*footer ends*/
