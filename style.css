@@ -135,10 +135,171 @@ footer{
 }
 /*footer ends*/
 
+/*---------------contact form css--------------*/
+input[type=text], 
+input[type=email], 
+input[type=tel], 
+input[type=date], 
+input[type=password], 
+textarea{
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    resize: vertical;
+    border: 1px solid var(--btn_res);
+}
+select{
+    width: 50%;
+    padding: 8px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+input[type=submit]{
+    border: none;
+    padding: 6px 12px 6px 12px;
+    background-color: var(--secondary);
+    border: 1px solid var(--btn_res);
+    font-weight: 400;
+    margin-bottom: 3rem;
+    }
+/*---------------contact form css ends--------------*/
+
+/*---------------accueil page starts----------------*/
+.accueil-container{
+    
+}
+    .accueil-container img{
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+/*---------------accueil page ends------------------*/
+
+/*---------------client page starts---------*/
+.client-container{
+    width: 100%;
+    text-align: center;
+    height: 70vh;
+}
+    .client-container img{
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        opacity: 0.2;
+    }
+.section-client-title{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+    .section-client-title h1{
+        color: var(--principal);
+        margin-bottom: 2rem;
+        margin-top: 4rem;
+        font-family: 'Hind Madurai', sans-serif;
+    }
+    .section-client-title h4{
+        color: var(--btn_res);
+        font-family: 'Hind Madurai', sans-serif;
+        margin-bottom: 10px;
+    }
+    input[type=submit]{
+        border: none;
+        padding: 6px 12px 6px 12px;
+        background-color: var(--secondary);
+        border: 1px solid var(--btn_res);
+        font-weight: 400;
+        margin-bottom: 3rem;
+        }
+/*---------------client page ends---------*/
+
+
+/*---------------resrvation page starts---------*/
+
+.reservation-container{
+    /* position: relative; */
+    width: 100%;
+    text-align: center;
+    height: 900px;
+}
+    .reservation-container img{
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        opacity: 0.2;
+    }
+.section-reservation-title{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+    .section-reservation-title h1{
+        color: var(--principal);
+        margin-top: 8rem;
+        margin-bottom: 2rem;
+        font-family: 'Hind Madurai', sans-serif;
+    }
+    .section-reservation-title h4{
+        color: var(--btn_res);
+        font-family: 'Hind Madurai', sans-serif;
+        margin-bottom: 10px;
+    }
+    .reservation-btn{
+        margin-bottom: 2rem;
+    }
+/*---------------resrvation page ends---------*/
+
+
+/*---------------login page starts---------*/
+.connexion-container{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    height: 600px;
+}
+    .connexion-container img{
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        opacity: 0.2;
+    }
+.section-connexion-title{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+    .section-connexion-title h1{
+        color: var(--principal);
+        margin-bottom: 2rem;
+        font-family: 'Hind Madurai', sans-serif;
+    }
+    .section-connexion-title h4{
+        color: var(--btn_res);
+        font-family: 'Hind Madurai', sans-serif;
+        margin-bottom: 10px;
+    }
+    
+/*---------------login page ends---------*/
+
 /*--------media queries--------*/
 
 
-@media only screen and (max-width: 1465px) {
+@media only screen and (max-width: 1300px) {
     .nav-menu{
         position: fixed;
         left: -100%;
@@ -153,7 +314,7 @@ footer{
         left: 0;
     }
     .nav-item{
-        margin: 2.5rem 0;
+        margin: 2.8rem 0;
     }
     .nav-link{
         font-size: 14px;
@@ -177,6 +338,33 @@ footer{
     footer{
         flex-direction: column;
         gap: 15px;
+        font-size: 12px;
+    }
+
+}
+
+@media only screen and (max-width: 500px){
+    .nav-item{
+        margin: 2rem;
+    }
+    .connexion-container{
+        height: 58vh;
+    }
+    .section-connexion-title h1{
+        font-size: 16px;
+        margin-top: 1rem;
+    }
+    .section-connexion-title h1{
+        margin-bottom: 0.9rem;
+    }
+    .section-connexion-title h4{
+        margin-bottom: 5px;
+    }
+    .section-connexion-title p{
+        font-size: 11px;
+    }
+    input[type=submit]{
+        margin-bottom: 7rem;
     }
 
 }
