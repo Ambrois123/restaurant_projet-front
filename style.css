@@ -18,7 +18,7 @@ a {
 button{
     cursor: pointer;
 }
-
+/*----------------------Template starts--------------------*/
 /*header starts*/
 .header{
     position: sticky;
@@ -135,39 +135,16 @@ footer{
 }
 /*footer ends*/
 
-/*---------------contact form css--------------*/
-input[type=text], 
-input[type=email], 
-input[type=tel], 
-input[type=date], 
-input[type=password], 
-textarea{
+.mainTemplate{
     width: 100%;
-    padding: 12px;
-    box-sizing: border-box;
-    margin-top: 10px;
-    margin-bottom: 16px;
-    resize: vertical;
-    border: 1px solid var(--btn_res);
+    max-height: 1500px;
+   
 }
-select{
-    width: 50%;
-    padding: 8px;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 16px;
-}
-input[type=submit]{
-    border: none;
-    padding: 6px 12px 6px 12px;
-    background-color: var(--secondary);
-    border: 1px solid var(--btn_res);
-    font-weight: 400;
-    margin-bottom: 3rem;
-    }
-/*---------------contact form css ends--------------*/
+/*----------------------Template ends--------------------*/
 
-/*---------------accueil page starts----------------*/
+/*----------------------Page d'accueil starts--------------------*/
+
+
 .accueil-container{
     width: 100%;
     text-align: center;
@@ -216,9 +193,15 @@ input[type=submit]{
         width: 10rem;
         height: 10rem;
     }
-/*---------------accueil page ends------------------*/
 
-/*---------------client page starts---------*/
+/*----------------------Page d'accueil ends--------------------*/
+/*----------------------Page la carte starts--------------------*/
+/*----------------------Page la carte ends--------------------*/
+/*----------------------Page nos menus starts--------------------*/
+/*----------------------Page nos menus ends--------------------*/
+/*----------------------Page devenir client starts--------------------*/
+
+
 .client-container{
     width: 100%;
     text-align: center;
@@ -263,10 +246,10 @@ input[type=submit]{
         font-weight: 400;
         margin-bottom: 3rem;
         }
-/*---------------client page ends---------*/
 
+/*----------------------Page devenir client  ends--------------------*/
+/*----------------------Page reservation starts--------------------*/
 
-/*---------------resrvation page starts---------*/
 
 .reservation-container{
     position: relative;
@@ -308,10 +291,11 @@ input[type=submit]{
     .reservation-btn{
         margin-bottom: 2rem;
     }
-/*---------------resrvation page ends---------*/
+
+/*----------------------Page reservation ends--------------------*/
+/*----------------------Page connexion starts--------------------*/
 
 
-/*---------------login page starts---------*/
 .connexion-container{
     position: relative;
     width: 100%;
@@ -349,7 +333,39 @@ input[type=submit]{
         margin-bottom: 10px;
     }
     
-/*---------------login page ends---------*/
+
+/*----------------------Page connexion ends--------------------*/
+/*---------------contact form css--------------*/
+input[type=text], 
+input[type=email], 
+input[type=tel], 
+input[type=date], 
+input[type=password], 
+textarea{
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    resize: vertical;
+    border: 1px solid var(--btn_res);
+}
+select{
+    width: 50%;
+    padding: 8px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+input[type=submit]{
+    border: none;
+    padding: 6px 12px 6px 12px;
+    background-color: var(--secondary);
+    border: 1px solid var(--btn_res);
+    font-weight: 400;
+    margin-bottom: 3rem;
+    }
+
 
 /*--------media queries--------*/
 

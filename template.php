@@ -14,30 +14,30 @@
             <div class="nav-logo">
                 <h1>LE RESTAURANT</h1>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="./index.html" class="nav-link">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a href="./carte.html" class="nav-link">La carte</a>
-                </li>
-                <li class="nav-item">
-                    <a href="./menu.html" class="nav-link">Nos menus</a>
-                </li>
-                <li class="nav-item">
-                    <a href="./client.html" class="nav-link">Devenir client</a>
-                </li>
-                <li class="nav-item">
-                    <button class="nav_btn_reservation">
-                        <a href="./reservation.html">Réservez</a>
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav_btn_connexion">
-                        <a href="./connexion.html">Connexion</a>
-                    </button>
-                </li>
-            </ul>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="accueil.php" class="nav-link">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="carte.php" class="nav-link">La carte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="menu.php" class="nav-link">Nos menus</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="client.php" class="nav-link">Devenir client</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav_btn_reservation">
+                            <a href="reservation.php">Réservez</a>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav_btn_connexion">
+                            <a href="connexion.php">Connexion</a>
+                        </button>
+                    </li>
+                </ul>
                 <div class="hamburger">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -46,9 +46,11 @@
         </nav>
     </header>
     <!--header ends-->
-
-    <!--footer starts-->
-    <footer>
+    <main class="mainTemplate">
+                <?= $content; ?>
+    </main>
+        <!--footer starts-->
+        <footer>
         <div class="footer_hour">
             <p class="footer_hour_title">Horaire d'ouvertures</p>
             <p>Lundi-mercredi-vendredi : 11h30 à 14h et 18h - 23h</p>
