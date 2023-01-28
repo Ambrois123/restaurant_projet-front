@@ -36,7 +36,7 @@ ob_start();
                 </div>
             </div>
             <div class="menus_box menus_box_3">
-                <h4>Menu du soir</h4>
+                <h4>Formule plaisir d'offrir</h4>
                 <div class="menus_row">
                     <p>Salade au saumon</p>
                     <p>Pavé de steak ou des tagliatelles</p>
@@ -51,7 +51,7 @@ ob_start();
                 </div>
             </div>
             <div class="menus_box menus_box_4">
-                <h4>Formules seniors</h4>
+                <h4>Formule seniors</h4>
                 <div class="menus_row">
                     <p>Salade au saumon</p>
                     <p>Pavé de steak ou des tagliatelles</p>

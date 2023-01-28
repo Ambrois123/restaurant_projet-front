@@ -2,21 +2,26 @@
 ob_start();
 ?>
 
-<main class="connexion-container">
-        <!-- <img src="./images/background.jpg" alt="photo du restaurant"> -->
-        <div class="section-connexion-title">
-            <h1>Connectez-vous à votre compte</h1>
-            <h4>Bienvenue au restaurant</h4>
-            <p>Merci de bien vouloir le formulaire afin que nous puissions mieux vous servir</p>
-            <form action="">
-                <label for="email"></label>
-                <input type="email" id="email" name="email" placeholder="Votre adresse mail">
+<main class="main_container_connexion">
+        <section class="container_connexion">
+            <div class="container_connexion_title">
+                <h1>Page de connexion</h1>
+                <p>Chers clients -tes connectez-vous à votre compte et laissez-vous guider.</p>
+            </div>
+            <div class="container_connexion_form">
+                <form action="">
+                    <label for="email"></label>
+                    <input type="email" id="email" name="email" placeholder="Votre adresse mail">
 
-                <label for="password"></label>
-                <input type="password" id="password" name="password" placeholder="Votre mot de passe">
-                <input type="submit" value="Valider">
-            </form>
-        </div>
+                    <label for="password"></label>
+                    <input type="password" id="password" name="password" placeholder="Votre mot de passe">
+                    
+                    <div class="connexion_btn">
+                        <input type="submit" value="Valider">
+                    </div>
+                </form>
+            </div>
+        </section>
     </main>
 
 <?php
