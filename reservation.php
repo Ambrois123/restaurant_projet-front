@@ -2,13 +2,14 @@
 
 ob_start();
 ?>
-
-<main class="reservation-container">
-        <img src="./images/background.jpg" alt="photo du restaurant">
-        <div class="section-reservation-title">
-            <h1>Réservez</h1>
-            <h4>Bienvenue au restaurant</h4>
-            <p>Etre client chez nous c'est avoir des privilèges</p>
+<main class="main_container_reservation">
+        <div class="container_reservation">
+            <div class="container_reservation_title">
+                <h1>Réservez votre table</h1>
+                <p>Le restaurant vous accueille dans un 
+                    cadre exceptionnel pour des moments inoubliables.</p>
+            </div>
+            <div class="container_reservation_form">
             <form action="">
                 <label for="username"></label>
                 <input type="text" id="username" name="username" placeholder="Votre nom et prénom">
@@ -50,11 +51,14 @@ ob_start();
                 
                 <label for="allergies"></label>
                 <input type="text" id="allergies" name="allergies" placeholder="Des allergies ?">
-                
-                <input type="submit" value="Réserver" class="reservation-btn">
+                <div class="reservation_btn">
+                    <input type="submit" value="Réserver">
+                </div>
             </form>
+            </div>
         </div>
-    </main>
+</main>
+
 
 <?php
 $content= ob_get_clean();

@@ -3,7 +3,7 @@ ob_start();
 ?>
 
 <main class="client-container">
-        <img src="./images/background.jpg" alt="photo du restaurant">
+        <!-- <img src="./images/background.jpg" alt="photo du restaurant"> -->
         <div class="section-client-title">
             <h1>Devenez client</h1>
             <h4>Bienvenue au restaurant</h4>

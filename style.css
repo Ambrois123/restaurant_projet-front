@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300&family=Lora&family=Montserrat:wght@100;500;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Hind+Madurai:wght@300&family=Italianno&family=Montserrat:wght@100;500;700&display=swap');
 :root{
     --principal: #003837;
     --secondary: #ffe093;
@@ -18,6 +17,13 @@ a {
 button{
     cursor: pointer;
 }
+html{
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
 /*----------------------Template starts--------------------*/
 /*header starts*/
 .header{
@@ -34,9 +40,7 @@ button{
     color: var(--secondary);
     padding: 1rem 1.5rem;
 }
-    .nav-logo{
-        /* padding-left: 10px; */
-    }
+    
     .nav-menu{
         display: flex; 
         justify-content: space-between;
@@ -135,69 +139,221 @@ footer{
 }
 /*footer ends*/
 
+/*----------------------Template starts--------------------*/
 .mainTemplate{
     width: 100%;
-    max-height: 1500px;
+    max-height: 180vh;
    
 }
 /*----------------------Template ends--------------------*/
 
 /*----------------------Page d'accueil starts--------------------*/
 
-
-.accueil-container{
-    width: 100%;
-    text-align: center;
-    height: 70vh;
-    
+.accueil_container{
+    margin-bottom: 10.5rem;;
 }
-    .accueil-container img{
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100%;
-        width: 100%;
-        filter: blur(2px);
+.accueil_container_title{
+    padding: 1.5rem;
+    border: 4px solid white;
+    width: 65%;
+    margin: auto;
+    margin-top: 2rem;
+    background-color: white;
+    opacity: 0.8;
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+}
+.accueil_container_title h1{
+    font-family: 'Great Vibes', cursive;
+    color: var(--principal);
+    font-size: 4em;
+    text-align: center;
+}
+
+.accueil_container_title p{
+    font-family: 'Great Vibes', cursive;
+    color: var(--principal);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+.accueil_container_boxes{
+    border: 4px solid white;
+    width: 95%;
+    height: 20rem;
+    margin: auto;
+    margin-top: 3rem;
+    background-color: white;
+    opacity: 0.9;
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.accueil_container_boxes_title h3{
+    color: var(--principal);
+}
+.boxes{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+    .box{
+        width: 12rem;
+        height: 12rem;
+        position: relative;
+        box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
     }
-    .accueil-section-title{
+    .box img{
+        display: block;
+        width: 100%;
+        height: 100%;  
+    }
+    .overlay{
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        overflow: hidden;
+        width: 100%;
+        height: 0;
+        transition: .5s ease;
+    }
+    .box:hover .overlay{
+        bottom: 0;
+        height: 100%;
+    }
+    .overlay_title{
+        color: var(--principal);
         position: absolute;
         top: 50%;
         left: 50%;
+        font-size: 12px;
         transform: translate(-50%, -50%);
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-        color: white;
-        border: 3px solid #f1f1f1;
-        width: 60%;
-        padding: 10px 40px 10px 40px;
-        width: 95%;
-        height: 60%;
-        margin-bottom: 10px;
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
     }
-    .accueil-section-title h2{
-        margin-top: 4rem;
+    .overlay_title span{
+        font-weight: bold;
+        padding-bottom: 2rem;
     }
-    .accueil-section-incontournable{
-        width: 100%;
-        height: 100%;
-    }
-    .accueil-section-boxes{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-    .box{
-        border: 2px solid #f1f1f1;
-        width: 10rem;
-        height: 10rem;
-    }
+    
 
 /*----------------------Page d'accueil ends--------------------*/
 /*----------------------Page la carte starts--------------------*/
+.main_container_carte{
+    height: 115vh;
+}
+.carte_container{
+    width: 70%;
+    background-color: white;
+    opacity: 0.80;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.carte_container h1{
+    color: var(--principal);
+    font-family: 'Great Vibes', cursive;
+    text-align: center;
+    padding-top: 1.5rem;
+    font-size: 3rem;
+    
+}
+.carte_container article{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2em;
+    grid-gap: 2em;
+}
+.carte_box{
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+    width: 450px;
+    height: 220px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+.carte_box h4{
+    color: var(--principal);
+}
+.carte_box_1, .carte_box_2{
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.plat_row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8em;
+    gap: 1.5rem;
+}
+    .plat_row p{
+        font-style: italic;
+    }
+    .plat_row span{
+        width: 80px;
+    }
 /*----------------------Page la carte ends--------------------*/
 /*----------------------Page nos menus starts--------------------*/
+.main_container_menus{
+    height: 160vh;
+}
+.menus_container{
+    width: 70%;
+    background-color: white;
+    opacity: 0.80;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.menus_container h1{
+    color: var(--principal);
+    font-family: 'Great Vibes', cursive;
+    text-align: center;
+    padding-top: 1.5rem;
+    font-size: 3rem;
+}
+.menus_container_boxes{
+    padding: 3rem;
+}
+.menus_box{
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+    width: 70%;
+    height: 5rem;
+    margin: auto;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+.menus_box h4{
+    text-align: center;
+    color: var(--principal);
+}
+.menus_row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8em;
+    gap: 1.5rem;
+}
+    .menus_row p{
+        font-size: 12px;
+    }
+    .menus_row span{
+        width: 80px;
+        font-size: 12px;
+}
+
 /*----------------------Page nos menus ends--------------------*/
 /*----------------------Page devenir client starts--------------------*/
 
@@ -205,7 +361,7 @@ footer{
 .client-container{
     width: 100%;
     text-align: center;
-    height: 70vh;
+    height: 100vh;
 }
     .client-container img{
         background-position: center;
@@ -213,7 +369,6 @@ footer{
         background-size: cover;
         height: 100%;
         width: 100%;
-        filter: blur(4px);
     }
 .section-client-title{
     position: absolute;
@@ -250,46 +405,50 @@ footer{
 /*----------------------Page devenir client  ends--------------------*/
 /*----------------------Page reservation starts--------------------*/
 
-
-.reservation-container{
-    position: relative;
+.main_container_reservation{
+    height: 125vh;
     width: 100%;
-    text-align: center;
-    height: 900px;
 }
-    .reservation-container img{
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100%;
-        width: 100%;
-        filter: blur(4px);
-    }
-.section-reservation-title{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    color: white;
-    border: 2px solid #f1f1f1;
-    width: 60%;
+.container_reservation{
+    width: 50%;
+    margin: auto;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
     padding: 10px 40px 10px 40px;
-    width: 70%;
+
 }
-    .section-reservation-title h1{
-        color: var(--btn_res);
-        margin-bottom: 1rem;
-        font-family: 'Hind Madurai', sans-serif;
-    }
-    .section-reservation-title h4{
-        color: white;
-        font-family: 'Hind Madurai', sans-serif;
-        margin-bottom: 10px;
-    }
-    .reservation-btn{
-        margin-bottom: 2rem;
+.container_reservation_title{
+    width: 100%;
+    background-color: white;
+    opacity: 0.80;
+}
+.container_reservation_title h1{
+    color: var(--principal);
+    font-family: 'Great Vibes', cursive;
+    text-align: center;
+    padding-top: 1.5rem;
+    font-size: 3rem;
+}
+.container_reservation_title p{
+    color: var(--principal);
+    text-align: center;
+    padding-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+.container_reservation_form{
+    background-color: white;
+    opacity: 0.95;
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
+}
+    .reservation_btn{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-top: 0.5rem;
     }
 
 /*----------------------Page reservation ends--------------------*/

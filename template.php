@@ -47,10 +47,12 @@
     </header>
     <!--header ends-->
     <main class="mainTemplate">
-                <?= $content; ?>
+        <?= $content; ?>
     </main>
+                
+    
         <!--footer starts-->
-        <footer>
+    <footer>
         <div class="footer_hour">
             <p class="footer_hour_title">Horaire d'ouvertures</p>
             <p>Lundi-mercredi-vendredi : 11h30 à 14h et 18h - 23h</p>

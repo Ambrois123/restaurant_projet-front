@@ -3,7 +3,7 @@ ob_start();
 ?>
 
 <main class="connexion-container">
-        <img src="./images/background.jpg" alt="photo du restaurant">
+        <!-- <img src="./images/background.jpg" alt="photo du restaurant"> -->
         <div class="section-connexion-title">
             <h1>Connectez-vous à votre compte</h1>
             <h4>Bienvenue au restaurant</h4>
