@@ -19,7 +19,10 @@ ob_start();
 
                 <label for="phone"></label>
                 <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone">
-
+                 
+                <label for="couvert"></label>
+                <input type="number" id="couvert" name="couvert" placeholder="Couverts">
+                
                 <label for="date"></label>
                 <input type="date" id="date" name="date" placeholder="Date">
 
