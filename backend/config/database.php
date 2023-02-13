@@ -1,26 +1,23 @@
 <?php
 
-class Database 
-{
-    private $host = 'localhost';
-    private $db_name = 'restaurant_server';
-    private $username = 'projet_restr';
-    private $password = 'Dev_Projet_Restaurant';
-    public $conn;
+
+    $host = 'localhost';
+    $db_name = 'restaurant_server';
+    $username = 'projet_restr';
+    $password = 'Dev_Projet_Restaurant';
+   
 
     //établir la connexion
-    public function getConnect(){
-        $this->conn = null;
+
 
         try{
-            $this->conn = new PDO('msql:host=' .$this->host. ';
-            dbname=' .$this->db_name, $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $db = new PDO("mysql:host={$host};dbname={$db_name}", $username,$password);
+            $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            echo "connexion réussie";
              
         }catch(PDOException $err){
             $err_msg = "Erreur de connexion";
             $err_msg .= $err->getMessage();
         }
-        return $this->conn;
-    }
-}
+       
+ 

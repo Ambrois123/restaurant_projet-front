@@ -15,6 +15,14 @@ ob_start();
 
                     <label for="password"></label>
                     <input type="password" id="password" name="password" placeholder="Votre mot de passe">
+
+                    <div class="select-form">
+                        <select name="role" id="role">
+                            <option value="" selected="selected">- En tant que -</option>
+                            <option value="user">Client</option>
+                            <option value="admin">admin</option>
+                        </select>
+                    </div>
                     
                     <div class="connexion_btn">
                         <input type="submit" value="Valider">

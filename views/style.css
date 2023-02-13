@@ -517,6 +517,22 @@ footer{
         justify-content: center;
         padding-top: 0.5rem;
     }
+    .select-form{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #role{
+        width: 50%;
+        padding: 12px;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        border-radius: 0px;
+        background-color: white;
+        border: 1px solid var(--btn_res);
+    }
 /*----------------------Page connexion ends--------------------*/
 /*---------------contact form css--------------*/
 input[type=text], 
