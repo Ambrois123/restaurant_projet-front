@@ -18,8 +18,6 @@ if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['phone']
     if(empty($_POST['username'])){
         $err_username = "Veuillez renseigner votre nom et prénom";
 
-    }else {
-        $username = $_POST['username'];
     }
     if(!preg_match($pattern_name,$_POST['username'])){
             $err_username_format = "Veuillez renseigner un nom et prénom valide";
@@ -52,6 +50,21 @@ if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['phone']
 
     if(empty($_POST['hour'])){
         $err_hour = "Veuillez renseigner l'horaire de votre réservation";
+    }
+
+    if(isset($POST['resevation_btn'])){
+        if($err_username =="" && $err_username_format && $err_email =="" 
+        && $err_email_format =="" && $err_phone =="" && $err_phone_format =="" 
+        && $err_couvert =="" && $err_date =="" && $err_hour ==""){
+            $username = $_POST['username'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $couvert = $_POST['couvert'];
+            $date = $_POST['date'];
+            $hour = $_POST['hour'];
+            $allergies = $_POST['allergies'];
+        }
+        
     }
 
     try{
