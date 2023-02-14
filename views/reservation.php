@@ -18,6 +18,8 @@ if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['phone']
     if(empty($_POST['username'])){
         $err_username = "Veuillez renseigner votre nom et prénom";
 
+    }else {
+        $username = $_POST['username'];
     }
     if(!preg_match($pattern_name,$_POST['username'])){
             $err_username_format = "Veuillez renseigner un nom et prénom valide";
@@ -98,7 +100,7 @@ if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['phone']
 
                 <label for="username"></label>
                 <input type="text" id="username" name="username" placeholder="Votre nom et prénom">
-                <p class="error"><?php echo isset($err_username_format) ? $err_username_format: "";?></p>
+                
                 <p class="error"><?php echo isset($err_username) ? $err_username: "";?></p>
                 
                 
