@@ -12,7 +12,7 @@ ob_start();
                 </p>
             </div>
             <div class="container_client_form">
-                <form action="" method="">   
+                <form action="" method="post">   
                     <label for="username"></label>
                     <input type="text" id="username" name="username" placeholder="Votre nom et prénom">
 
@@ -25,8 +25,7 @@ ob_start();
                     <label for="password"></label>
                     <input type="password" id="password" name="password" placeholder="Votre mot de passe">
                     
-                    <label for="allergies"></label>
-                    <input type="text" id="allergies" name="allergies" placeholder="Des allergies ?">
+                    <textarea name="allergies" id="allergies" cols="30" rows="3" placeholder="Des allergies ?"></textarea>
                     
                     <div class="client_btn">
                         <input type="submit" value="Valider">
