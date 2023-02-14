@@ -12,9 +12,10 @@ try{
                 user_id INT(11)PRIMARY KEY not null AUTO_INCREMENT,
 		        user_name VARCHAR(250) not null,
                 user_email VARCHAR(100) not null,
+                role ENUM("visiteur", "client", "admin") null,
                 user_phone VARCHAR(20) not null,
-                user_password VARCHAR(100) not null,
-                adminId INT(11) not null,
+                user_password VARCHAR(100) null,
+                adminId INT(11) null,
                 FOREIGN KEY (adminId) REFERENCES administrateur (admin_id)
 
             )') !==false){
@@ -43,7 +44,7 @@ try{
                     if($serveurRest->exec('CREATE TABLE meals(
                         meals_id INT(11) PRIMARY KEY not null AUTO_INCREMENT,
                         meals_title VARCHAR(50) not null,
-                        meals_drescription VARCHAR(60) not null,
+                        meals_description VARCHAR(60) not null,
                         meals_price FLOAT not null,
                         restaurantId INT(11) not null,
                         FOREIGN KEY (restaurantId) REFERENCES restaurant (restaurant_id)
