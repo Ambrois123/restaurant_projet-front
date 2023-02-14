@@ -24,6 +24,10 @@ html{
     background-position: center;
 
 }
+.error{
+    color: red;
+    font-size: 11px;
+}
 /*----------------------Template starts--------------------*/
 /*header starts*/
 .header{
@@ -468,6 +472,20 @@ footer{
         padding-top: 0.5rem;
     }
 
+    #couvert{
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        resize: vertical;
+        border: 1px solid var(--btn_res);
+    }
+    #allergies{
+        width: 100%;
+        border: 1px solid var(--btn_res);
+    }
+
 /*----------------------Page reservation ends--------------------*/
 /*----------------------Page connexion starts--------------------*/
 .main_container_connexion{
@@ -539,7 +557,8 @@ input[type=text],
 input[type=email], 
 input[type=tel], 
 input[type=date], 
-input[type=password], 
+input[type=password],
+input[type=number] 
 textarea{
     width: 100%;
     padding: 12px;

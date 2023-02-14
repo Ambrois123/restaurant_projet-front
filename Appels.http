@@ -1,2 +1,11 @@
 ###
-GET http://localhost/restaurant_projet-front-1/index.php
+GET http://localhost/dossier_projet_formation/restaurant_projet-front/mealsRead.php HTTP/1.1
+
+###
+POST http://localhost/dossier_projet_formation/restaurant_projet-front/mealsCreate.php HTTP/1.1
+
+{
+    "meals_title": "test",
+    "meals_description": "test",
+    "meals_price": 12
+}

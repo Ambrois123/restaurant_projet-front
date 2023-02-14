@@ -8,7 +8,7 @@ ob_start();
                 <h1>Devenez client</h1>
                 <p>Nous serons à vos côtés pour l'organisation 
                     de vos événements privés. Vous serez aussi 
-                    informés des nouveautés dans votre restaurant.
+                    informés des nouveautés de votre restaurant.
                 </p>
             </div>
             <div class="container_client_form">
