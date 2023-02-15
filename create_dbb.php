@@ -21,9 +21,9 @@ try{
             )') !==false){
                 if($serveurRest->exec('CREATE TABLE reservation(
                     reservation_id INT(11) PRIMARY KEY not null AUTO_INCREMENT,
-                    reservation_time TIME not null,
-                    reservation_date date not null,
+                    reservation_datetime DATETIME not null,
                     numberOfPeople INT(11) not null,
+                    status BOOL not null,
                     userId INT(11) not null,
                     FOREIGN KEY (userId) REFERENCES users (user_id)
                 

@@ -134,7 +134,7 @@ if(isset($_POST['reservation_btn'])){
                 <p class="error"><?php echo isset($err_couvert) ? $err_couvert: "";?></p>
                 
                 <label for="date"></label>
-                <input type="date" id="date" name="date" placeholder="Date">
+                <input type="datetime-local" id="date" name="date">
                 <p class="error"><?php echo isset($err_date) ? $err_date: "";?></p>
                 
 
@@ -147,7 +147,7 @@ if(isset($_POST['reservation_btn'])){
                   <option value="12:30">12:30</option>
                   <option value="13:00">13:00</option>
                   <option value="13:30">13:30</option>
-                  <option value="14:00">14:00</option>
+                  <option value="14:00 ">14:00</option>
                 </select>
                 <p class="error"><?php echo isset($err_hour) ? $err_hour: ""?></p>
                 
