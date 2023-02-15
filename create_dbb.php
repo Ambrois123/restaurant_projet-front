@@ -12,7 +12,7 @@ try{
                 user_id INT(11)PRIMARY KEY not null AUTO_INCREMENT,
 		        user_name VARCHAR(250) not null,
                 user_email VARCHAR(100) not null,
-                role ENUM("visiteur", "client", "admin") null,
+                role ENUM("visiteur", "client", "admin") null default "client",
                 user_phone VARCHAR(20) not null,
                 user_password VARCHAR(100) null,
                 adminId INT(11) null,
@@ -23,8 +23,8 @@ try{
                     reservation_id INT(11) PRIMARY KEY not null AUTO_INCREMENT,
                     reservation_datetime DATETIME not null,
                     numberOfPeople INT(11) not null,
-                    status BOOL not null,
-                    userId INT(11) not null,
+                    statut VARCHAR(20) null,
+                    userId INT not null,
                     FOREIGN KEY (userId) REFERENCES users (user_id)
                 
                 )') !==false){
