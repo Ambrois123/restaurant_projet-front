@@ -3,76 +3,101 @@
 ob_start();
 ?>
 <?php 
+session_start();
+
+?>
+<?php 
+
 
 require_once '../config/database.php';
 
 
-$err_username = $err_email = $err_phone = $err_couvert = $err_date = $err_time = $err_allergies = "";
+$err_username = $err_username_format = $err_email = $err_email_fromat = $err_phone = $err_phone_format = $err_couvert = $err_date = $err_time = $err_allergies = "";
 $username = $email = $phone = $couvert = $date = $time = $allergies = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    //variables de vérification des champs vides et du format
+
+    $isEmptyFields = false;
+    $isFormtCorrect = false;
+
     // Vérification du champ username
     if (empty($_POST['username'])){
         $err_username = "Veuillez renseigner votre nom et prénom";
+        $isEmptyFields = true;
     }else{
         $username = test_input($_POST['username']);
 
         // Vérification du format username
         if(!preg_match("/^[a-zA-Z ]*$/", $username)){
-            $name_error = "Seules les lettres sont acceptées.";
+            $err_username_format = "Seules les lettres sont acceptées.";
+            $isFormtCorrect = true;
         }
     }
 
     // Vérification du champ email
     if (empty($_POST['email'])){
         $err_email = "Veuillez renseigner votre adresse mail";
+        $isEmptyFields = true;
     }else{
         $email = test_input($_POST['email']);
 
         // Vérification du format email
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $email_error = "Format Email Incorrect.";
+            $err_email_format = "Format Email Incorrect.";
+            $isFormtCorrect = true;
         }
     }
     // Vérification du champ phone
     if (empty($_POST['phone'])){
         $err_phone = "Veuillez renseigner votre numéro de téléphone";
+        $isEmptyFields = true;
     }else{
         $phone = test_input($_POST['phone']);
 
         // Vérification du format du numéro de téléphone
         if(!preg_match('/^[0-9]{10}+$/', $phone)){
-            $phone_error = "Numéro de téléphone incorrect.";
+            $err_phone_format = "Numéro de téléphone incorrect.";
+            $isFormtCorrect = true;
         }
     }
     //Vérification du champ couvert
     if (empty($_POST['couvert'])){
         $err_couvert = "Veuillez renseigner le nombre de couverts";
+        $isEmptyFields = true;
     }else{
         $couvert = test_input($_POST['couvert']);
     }
     //Vérification du champ date
     if (empty($_POST['date'])){
         $err_date = "Veuillez renseigner la date";
+        $isEmptyFields = true;
     }else{
         $date = test_input($_POST['date']);
     }
     //Vérification du champ time
     if (empty($_POST['time'])){
         $err_time = "Veuillez renseigner l'heure";
+        $isEmptyFields = true;
     }else{
         $time = test_input($_POST['time']);
     }
     //Vérification du champ allergies
     if (empty($_POST['allergies'])){
         $err_allergies = "Veuillez renseigner vos allergies";
+        $isEmptyFields = true;
     }else{
         $allergies = test_input($_POST['allergies']);
     }
 
-    
+    //Déclarations des variables pour les requêtes
+    $usersDatas = false;
+    $reservationsDatas = false;
+    $allergiesDatas = false;
 
+    //exécution des requêtes
+    if($isEmptyFields === false && $isFormtCorrect === false){
      //insertion des données dans la table users
         $reqUsers = "INSERT INTO users (user_name, user_email, user_phone) VALUES (:username, :email, :phone)";
         $stmtUsers = $db->prepare($reqUsers);
@@ -119,15 +144,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        $stmtAllergies->bindValue(":reservationId", $reservationId, PDO::PARAM_INT);
        $allergiesDatas = $stmtAllergies->execute();
     
-    
+    }
 
     if($usersDatas === true && $reservationsDatas === true && $allergiesDatas === true){
 
-        echo "Votre réservation a bien été prise en compte";
+        //echo "Votre réservation a bien été prise en compte";
+
+        header("Location: validateReservation.php");
 
     }else{
 
-        echo "Une erreur est survenue";
+        echo "";
 
     }
 
@@ -140,6 +167,7 @@ function test_input($data) {
     return $data;
   }
 
+  
 ?>
 
 
