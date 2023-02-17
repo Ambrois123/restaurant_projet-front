@@ -3,7 +3,9 @@
 ob_start();
 ?>
 <?php 
+//start session
 session_start();
+
 
 ?>
 <?php 
@@ -200,7 +202,7 @@ function test_input($data) {
                 <p class="error"><?php echo isset($err_phone_format) ? $err_phone_format: "";?></p>
                  
                 <label for="couvert"></label>
-                <input type="number" min="0" id="couvert" name="couvert" placeholder="Couverts">
+                <input type="number" min="0" id="couvert" name="couvert" placeholder="Nombre de couverts">
                 <p class="error"><?php echo isset($err_couvert) ? $err_couvert: "";?></p>
                 
                 
@@ -221,6 +223,18 @@ function test_input($data) {
         </div>
 </main>
 
+<?php 
+
+//stockage des données de session dans des variables
+$_SESSION['username'] = $username;
+$_SESSION['email'] = $email;
+$_SESSION['phone'] = $phone;
+$_SESSION['date'] = $date;
+$_SESSION['time'] = $time;
+$_SESSION['couverts'] = $couvert;
+$_SESSION['allergies'] = $allergies;
+
+?>
 
 <?php
 $content= ob_get_clean();

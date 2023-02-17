@@ -1,6 +1,9 @@
 <?php
 ob_start();
 ?>
+<?php 
+session_start();
+?>
 
 <?php
 
@@ -67,10 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] =="POST") {
     } else {
         $password = test_input($_POST['password']);
 
-        // Vérification du format du mot de passe
-        // if(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}$/', $password)){
-    //     $err_password_format = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
-    //     $isFormatCorrect = true;
+        //valider un password fort
+        if (!preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$#", $password)){
+            $err_password_format = "Mot de passe incorrect.";
+            $isFormtCorrect = true;
+        } 
+        
     }
 
     //Déclaration des variables pour la requête
@@ -128,10 +133,13 @@ function test_input($data) {
                     <label for="phone"></label>
                     <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone">
                     <p class="error"><?php echo isset($err_phone) ? $err_phone: ""?></p>
-                <p class="error"><?php echo isset($err_phone_format) ? $err_phone_format: "";?></p>
+                    <p class="error"><?php echo isset($err_phone_format) ? $err_phone_format: "";?></p>
 
                     <label for="password"></label>
+                    <p class="password">Le mot de passe doit contenir entre 8 et 20 caractères, une majuscule, une minuscule et un chiffre.</p>
                     <input type="password" id="password" name="password" placeholder="Choisir votre mot de passe">
+                    <p class="error"><?php echo isset($err_password) ? $err_password: ""?></p>
+                    <p class="error"><?php echo isset($err_password_format) ? $err_password_format: "";?></p>
                     
                     
                     
@@ -142,6 +150,13 @@ function test_input($data) {
             </div>
         </section>
     </main>
+<?php 
+
+$_SESSION['username'] = $username;
+$_SESSION['email'] = $email;
+$_SESSION['phone'] = $phone;
+
+?>
 
 <?php
 $content= ob_get_clean();

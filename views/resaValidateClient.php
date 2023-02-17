@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //Déclaration des variables pour les requêtes
-    $usersDatas = false;
+    
     $reservationsDatas = false;
     $allergiesDatas = false;
 
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtGetUserId->execute();
         $userId = $stmtGetUserId->fetch(PDO::FETCH_ASSOC)['user_id'];//retourne un array
 
-    // var_dump($userId);
+    var_dump($userId);
     
     //insertion des données dans la table reservation
             $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople, userId) 
@@ -79,8 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     //  var_dump($userId);
 
-    //  echo gettype($userId);
-    //  echo gettype($stmtGetUserId);
 
     // Requête pour récupérer l'id de la réservation
         $stmtGetReservationId = $db->prepare("SELECT reservation_id FROM reservation WHERE numberOfPeople = :couvert");
@@ -102,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //echo "Votre réservation a bien été prise en compte";
 
-        header("Location: validateReservation.php");
+        header("Location: ./validateReservations.php");
 
     }else{
 
@@ -128,12 +126,12 @@ function test_input($data) {
 <main class="main_container_reservation">
         <div class="container_reservation">
             <div class="container_reservation_title">
-                <h1>Bonjour, réservez votre table</h1>
+                <h1>Bonjour <?php echo $_SESSION['username']; ?>, complétez le formulaire</h1>
                 <p>Le restaurant, le plaisir de vous accueillir.</p>
             </div>
             <div class="container_reservation_form">
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-                 
+         
                 <label for="couvert"></label>
                 <input type="number" min="0" id="couvert" name="couvert" placeholder="Couverts">
                 <p class="error"><?php echo isset($err_couvert) ? $err_couvert: "";?></p>

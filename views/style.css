@@ -419,6 +419,11 @@ footer{
         font-weight: 400;
         margin-bottom: 3rem;
         }
+    
+    .password{
+        color: darkgreen;
+        font-size: 0.8rem;
+    }
 
 /*----------------------Page devenir client  ends--------------------*/
 /*----------------------Page reservation starts--------------------*/
@@ -552,6 +557,22 @@ footer{
         border: 1px solid var(--btn_res);
     }
 /*----------------------Page connexion ends--------------------*/
+
+/*----------------------Page validation de réservation--------------------*/
+        /*Cette page s'ouvre quand le client s'inscrit*/
+.btn_logout_validation{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn_deconnexion{
+    border: none;
+    padding: 6px 12px 6px 12px;
+    background-color: var(--secondary);
+    border: 1px solid var(--btn_res);
+    font-weight: 400;
+}
 
 /*----------------------Page validateClient starts--------------------*/
         /*Cette page s'ouvre quand le client s'inscrit*/
