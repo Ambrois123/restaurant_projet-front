@@ -2,13 +2,6 @@
 ob_start();
 ?>
 
-<?php
-//connexion à la BDD
-require_once '../config/database.php';
-
-
-
-?>
 
 <main class="main_container_connexion">
         <section class="container_connexion">
@@ -18,7 +11,7 @@ require_once '../config/database.php';
             </div>
             <div class="container_connexion_form">
                 <form action="./connexionProcess.php" method="post">
-                <p class="error"><?php echo isset($$_GET['error']) ? $error: "";?></p>
+                
                     <label for="email"></label>
                     <input type="email" id="email" name="email" placeholder="Votre adresse mail">
 

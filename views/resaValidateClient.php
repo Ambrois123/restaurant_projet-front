@@ -12,56 +12,15 @@ session_start();
 require_once '../config/database.php';
 
 
-$err_username = $err_username_format = $err_email = $err_email_fromat = $err_phone = $err_phone_format = $err_couvert = $err_date = $err_time = $err_allergies = "";
-$username = $email = $phone = $couvert = $date = $time = $allergies = "";
+$err_couvert = $err_date = $err_time = $err_allergies = "";
+$couvert = $date = $time = $allergies = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //variables de vérification des champs vides et du format
 
     $isEmptyFields = false;
-    $isFormtCorrect = false;
 
-    // Vérification du champ username
-    if (empty($_POST['username'])){
-        $err_username = "Veuillez renseigner votre nom et prénom";
-        $isEmptyFields = true;
-    }else{
-        $username = test_input($_POST['username']);
-
-        // Vérification du format username
-        if(!preg_match("/^[a-zA-Z ]*$/", $username)){
-            $err_username_format = "Seules les lettres sont acceptées.";
-            $isFormtCorrect = true;
-        }
-    }
-
-    // Vérification du champ email
-    if (empty($_POST['email'])){
-        $err_email = "Veuillez renseigner votre adresse mail";
-        $isEmptyFields = true;
-    }else{
-        $email = test_input($_POST['email']);
-
-        // Vérification du format email
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $err_email_format = "Format Email Incorrect.";
-            $isFormtCorrect = true;
-        }
-    }
-    // Vérification du champ phone
-    if (empty($_POST['phone'])){
-        $err_phone = "Veuillez renseigner votre numéro de téléphone";
-        $isEmptyFields = true;
-    }else{
-        $phone = test_input($_POST['phone']);
-
-        // Vérification du format du numéro de téléphone
-        if(!preg_match('/^[0-9]{10}+$/', $phone)){
-            $err_phone_format = "Numéro de téléphone incorrect.";
-            $isFormtCorrect = true;
-        }
-    }
     //Vérification du champ couvert
     if (empty($_POST['couvert'])){
         $err_couvert = "Veuillez renseigner le nombre de couverts";
@@ -98,13 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //exécution des requêtes
     if($isEmptyFields === false && $isFormtCorrect === false){
-     //insertion des données dans la table users
-        $reqUsers = "INSERT INTO users (user_name, user_email, user_phone) VALUES (:username, :email, :phone)";
-        $stmtUsers = $db->prepare($reqUsers);
-        $stmtUsers->bindParam(":username", $username, PDO::PARAM_STR);
-        $stmtUsers->bindParam(":email", $email, PDO::PARAM_STR);
-        $stmtUsers->bindParam(":phone", $phone, PDO::PARAM_STR);
-        $usersDatas = $stmtUsers->execute();
 
     // Requête pour récupérer l'id de l'utilisateur
 
@@ -146,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     }
 
-    if($usersDatas === true && $reservationsDatas === true && $allergiesDatas === true){
+    if($reservationsDatas === true && $allergiesDatas === true){
 
         //echo "Votre réservation a bien été prise en compte";
 
@@ -154,7 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }else{
 
-        echo "";
+        // echo "";
+        header("Location: resaNotValide.php");
 
     }
 
@@ -175,29 +128,11 @@ function test_input($data) {
 <main class="main_container_reservation">
         <div class="container_reservation">
             <div class="container_reservation_title">
-                <h1>Réservez votre table</h1>
-                <p>Le restaurant vous accueille dans un 
-                    cadre exceptionnel pour des moments inoubliables.</p>
+                <h1>Bonjour, réservez votre table</h1>
+                <p>Le restaurant, le plaisir de vous accueillir.</p>
             </div>
             <div class="container_reservation_form">
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-
-                <label for="username"></label>
-                <input type="text" id="username" name="username" placeholder="Votre nom et prénom">
-                
-                <p class="error"><?php echo isset($err_username) ? $err_username: "";?></p>
-                <p class="error"><?php echo isset($err_username_format) ? $err_username_format: "";?></p>
-                
-                
-                <label for="email"></label>
-                <input type="email" id="email" name="email" placeholder="Votre adresse mail">
-                <p class="error"><?php echo isset($err_email) ? $err_email: ""?></p>
-                <p class="error"><?php echo isset($err_email_format) ? $err_email_format: "";?></p>
-
-                <label for="phone"></label>
-                <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone">
-                <p class="error"><?php echo isset($err_phone) ? $err_phone: ""?></p>
-                <p class="error"><?php echo isset($err_phone_format) ? $err_phone_format: "";?></p>
                  
                 <label for="couvert"></label>
                 <input type="number" min="0" id="couvert" name="couvert" placeholder="Couverts">
@@ -211,7 +146,7 @@ function test_input($data) {
                 <p class="error"><?php echo isset($err_time) ? $err_time: "";?></p>
 
                 
-                <textarea name="allergies" id="allergies" cols="4" rows="4" placeholder="Des allergies ?"></textarea>
+                <textarea name="allergies" id="allergies" cols="3" rows="3" placeholder="Des allergies ?"></textarea>
                 <p class="error"><?php echo isset($err_allergies) ? $err_allergies: "";?></p>
                 <div class="reservation_btn">
                     <input type="submit" name="reservation_btn" value="Réserver">

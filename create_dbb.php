@@ -14,7 +14,7 @@ try{
                 user_email VARCHAR(100) not null,
                 role ENUM("visiteur", "client", "admin") null default "client",
                 user_phone VARCHAR(20) not null,
-                user_password VARCHAR(100) null,
+                user_password VARCHAR(100) not null,
                 adminId INT(11) null,
                 FOREIGN KEY (adminId) REFERENCES administrateur (admin_id)
 

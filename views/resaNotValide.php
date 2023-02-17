@@ -10,13 +10,8 @@ session_start();
         <div class="container_client_title">
             <h4>LE RESTAURANT, Le plaisir de vous recevoir</h4>
             <p>Bonjour,  </p>
-            <p>LE RESTAURANT vous remercie pour votre réservation. Le résumé de votre réservation :</p>
+            <p>Votre restaurant est complet. Veuillez choisir un autre jour ou une autre heure.</p>
             <ul>
-                <li>Date : </li>
-                <li>Heure: </li>
-                <li>Nombre de couverts: </li>
-                <li>Vous êtes allergiques à </li>
-            </ul>
             <p>La Direction</p>
         </div>
     </section>

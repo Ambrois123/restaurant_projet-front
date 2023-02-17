@@ -6,82 +6,101 @@ ob_start();
 
 require_once '../config/database.php';
 
-if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['phone'])
-&& isset($_POST['password']) && isset($_POST['allergies'])){
+//Déclaration des variables avec les données du formulaire
+$err_username = $email = $phone = $password = "";
 
-    $pattern_email = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^";//vérifie le format d'une adresse mail
-    $pattern_name = "/^[a-zA-Z]+$/"; // accepte que alphabet et espace
-    $pattern_phone = "/^[0-9]{10}$/"; // accepte que les chiffres
+//Déclaration des variables des erreurs
+$err_username = $err_username_format = $err_email = $err_email_format = $err_phone = $err_phone_format = $err_password = $err_password_format = "";
+
+if ($_SERVER['REQUEST_METHOD'] =="POST") {
+    //variables de vérification des champs vides et du format
+
+    $isEmptyFields = false;
+    $isFormatCorrect = false;
 
     // Vérification du champ username
-    if(empty($_POST['username'])){
+    if (empty($_POST['username'])) {
         $err_username = "Veuillez renseigner votre nom et prénom";
+        $isEmptyFields = true;
+    } else {
+        $username = test_input($_POST['username']);
 
-    }
-
-    // Vérification du format username
-    if(!preg_match($pattern_name,$_POST['username'])){
-            $err_username_format = "Veuillez renseigner un nom et prénom valide";
-
+        // Vérification du format username
+        if (!preg_match("/^[a-zA-Z ]*$/", $username)) {
+            $err_username_format = "Seules les lettres sont acceptées.";
+            $isFormatCorrect = true;
+        }
     }
 
     // Vérification du champ email
-    if(empty($_POST['email'])){
+    if (empty($_POST['email'])) {
         $err_email = "Veuillez renseigner votre adresse mail";
-        
-    }
+        $isEmptyFields = true;
+    } else {
+        $email = test_input($_POST['email']);
 
-    // Vérification du format email
-    if(!preg_match($pattern_email,$_POST['email'])){
-        $err_email_format = "Veuillez renseigner une adresse mail valide";
-
+        // Vérification du format email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $err_email_format = "Format Email Incorrect.";
+            $isFormatCorrect = true;
+        }
     }
 
     // Vérification du champ phone
-    if(empty($_POST['phone'])){
+    if (empty($_POST['phone'])) {
         $err_phone = "Veuillez renseigner votre numéro de téléphone";
+        $isEmptyFields = true;
+    } else {
+        $phone = test_input($_POST['phone']);
 
+        // Vérification du format du numéro de téléphone
+        if (!preg_match('/^[0-9]{10}+$/', $phone)) {
+            $err_phone_format = "Numéro de téléphone incorrect.";
+            $isFormtCorrect = true;
+        }
     }
 
-    // Vérification du format phone
+    // Vérification du champ password
+    if (empty($_POST['password'])) {
+        $err_password = "Veuillez renseigner votre mot de passe";
+        $isEmptyFields = true;
+    } else {
+        $password = test_input($_POST['password']);
 
-    if(!preg_match($pattern_phone,$_POST['phone'])){
-        $err_phone_format = "Veuillez renseigner un numéro de téléphone valide";
-
+        // Vérification du format du mot de passe
+        // if(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}$/', $password)){
+    //     $err_password_format = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
+    //     $isFormatCorrect = true;
     }
 
-    //verification d'un mot de passe fort
+    //Déclaration des variables pour la requête
+    $usersDatas = false;
 
-    $password = '';
-    $uppercase = preg_match('@[A-Z]@', $password);
-    $lowercase = preg_match('@[a-z]@', $password);
-    $number    = preg_match('@[0-9]@', $password);
-    $specialChars = preg_match('@[^\w]@', $password);
-
-    if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password)){
-        echo "Mot e passe faible";
-    } else{
-        echo "Le mot de passe est fort";
+    //Exécution de la requête si tous les champs sont remplis et si le format est correct
+    if ($isEmptyFields === false && $isFormatCorrect === false) {
+        $req = "INSERT INTO users (user_name, user_email, user_phone, user_password) 
+        VALUES (:username, :email, :phone, :password)";
+        $stmt = $db->prepare($req);
+        $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->bindValue(':phone', $phone, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+        $usersDatas = $stmt->execute();
     }
 
-    //Réception des données du formulaire
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $password = $_POST['password'];
-    // $allergies = $_POST['allergies'];
-
-    $req = "INSERT INTO client (user_name, user_email, user_phone, user_password) 
-    VALUES (:username, :email, :phone, :password)";
-
-    $stmt = $db->prepare($req);
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':phone', $phone);
-    $stmt->bindParam(':password', $password);
-    $stmt->execute();
-
+    if ($usersDatas === true) {
+        header('Location: ../views/validateClient.php');
+    } else {
+        echo "Une erreur est survenue";
+    }
 }
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+  }
+
 
 ?>
 
@@ -95,15 +114,21 @@ if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['phone']
                 </p>
             </div>
             <div class="container_client_form">
-                <form action="" method="post">   
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">   
                     <label for="username"></label>
                     <input type="text" id="username" name="username" placeholder="Votre nom et prénom">
+                    <p class="error"><?php echo isset($err_username) ? $err_username: "";?></p>
+                    <p class="error"><?php echo isset($err_username_format) ? $err_username_format: "";?></p>
 
                     <label for="email"></label>
                     <input type="email" id="email" name="email" placeholder="Votre adresse mail">
+                    <p class="error"><?php echo isset($err_email) ? $err_email: ""?></p>
+                    <p class="error"><?php echo isset($err_email_format) ? $err_email_format: "";?></p>
 
                     <label for="phone"></label>
                     <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone">
+                    <p class="error"><?php echo isset($err_phone) ? $err_phone: ""?></p>
+                <p class="error"><?php echo isset($err_phone_format) ? $err_phone_format: "";?></p>
 
                     <label for="password"></label>
                     <input type="password" id="password" name="password" placeholder="Choisir votre mot de passe">

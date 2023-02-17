@@ -552,6 +552,27 @@ footer{
         border: 1px solid var(--btn_res);
     }
 /*----------------------Page connexion ends--------------------*/
+
+/*----------------------Page validateClient starts--------------------*/
+        /*Cette page s'ouvre quand le client s'inscrit*/
+.btn_validateClient{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-resa {
+    border: none;
+    padding: 6px 12px 6px 12px;
+    background-color: var(--btn_res);
+    border: 1px solid var(--secondary);
+    font-weight: 400;
+}
+    .btn-resa a {
+        color: var(--secondary);
+    }
+/*----------------------Page validateClient ends--------------------*/
+
 /*---------------contact form css--------------*/
 input[type=text], 
 input[type=email], 
