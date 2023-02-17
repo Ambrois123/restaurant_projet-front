@@ -71,68 +71,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $allergies = test_input($_POST['allergies']);
     }
 
+    
+
+     //insertion des données dans la table users
+        $reqUsers = "INSERT INTO users (user_name, user_email, user_phone) VALUES (:username, :email, :phone)";
+        $stmtUsers = $db->prepare($reqUsers);
+        $stmtUsers->bindParam(":username", $username, PDO::PARAM_STR);
+        $stmtUsers->bindParam(":email", $email, PDO::PARAM_STR);
+        $stmtUsers->bindParam(":phone", $phone, PDO::PARAM_STR);
+        $usersDatas = $stmtUsers->execute();
+
     // Requête pour récupérer l'id de l'utilisateur
 
-    $stmtGetUserId = $db->prepare("SELECT user_id FROM users WHERE user_email = :email");
-    $stmtGetUserId->bindParam(":email", $email, PDO::PARAM_STR);
-    $stmtGetUserId->execute();// retourne un objet
-    $stmtGetUserId->fetch(PDO::FETCH_ASSOC);//retourne un booléen
-    $userId = $stmtGetUserId;
+        $stmtGetUserId = $db->prepare("SELECT user_id FROM users WHERE user_email = :email");
+        $stmtGetUserId->bindParam(":email", $email, PDO::PARAM_STR);
+        $stmtGetUserId->execute();
+        $userId = $stmtGetUserId->fetch(PDO::FETCH_ASSOC)['user_id'];//retourne un array
+
+    // var_dump($userId);
     
-    // echo "<pre>";
-    //  print_r($stmtGetUserId);
-    //  echo "</pre>";
+    //insertion des données dans la table reservation
+            $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople, userId) 
+            VALUES (:date, :time, :couvert, :userId)";
+            $stmtReservation = $db->prepare($reqReservation);
+            $stmtReservation->bindParam(":date", $date, PDO::PARAM_STR);
+            $stmtReservation->bindParam(":time", $time, PDO::PARAM_STR);
+            $stmtReservation->bindParam(":couvert", $couvert, PDO::PARAM_STR);
+            $stmtReservation->bindValue(":userId", $userId, PDO::PARAM_INT);
+            $reservationsDatas = $stmtReservation->execute();
+    
     //  var_dump($userId);
 
     //  echo gettype($userId);
     //  echo gettype($stmtGetUserId);
 
     // Requête pour récupérer l'id de la réservation
-    $stmtGetReservationId = $db->prepare("SELECT reservation_id FROM reservation WHERE numberOfPeople = :couvert");
-    $stmtGetReservationId->bindParam(":couvert", $couvert, PDO::PARAM_INT);
-    $stmtGetReservationId->execute();// retourne un objet
-    $stmtGetReservationId->fetch(PDO::FETCH_ASSOC);//retourne un booléen
-    $reservationId = $stmtGetReservationId;
+        $stmtGetReservationId = $db->prepare("SELECT reservation_id FROM reservation WHERE numberOfPeople = :couvert");
+        $stmtGetReservationId->bindParam(":couvert", $couvert, PDO::PARAM_INT);
+        $stmtGetReservationId->execute();
+        $reservationId =  $stmtGetReservationId->fetch(PDO::FETCH_ASSOC)['reservation_id'];//retourne un array
+    
+       //insertion des données dans la table allergies
 
-    // var_dump($reservationId);
-
-    // echo gettype($stmtGetReservationId);
-    // echo gettype($reservationId);
-
-    //insertion des données dans la table users
-    $reqUsers = "INSERT INTO users (user_name, user_email, user_phone) VALUES (:username, :email, :phone)";
-    $stmtUsers = $db->prepare($reqUsers);
-    $stmtUsers->bindParam(":username", $username, PDO::PARAM_STR);
-    $stmtUsers->bindParam(":email", $email, PDO::PARAM_STR);
-    $stmtUsers->bindParam(":phone", $phone, PDO::PARAM_STR);
+       $reqAllergies = "INSERT INTO allergies (allergies_list, reservationId) VALUES (:allergies, :reservationId)";
+       $stmtAllergies = $db->prepare($reqAllergies);
+       $stmtAllergies->bindValue(":allergies", $allergies, PDO::PARAM_STR);
+       $stmtAllergies->bindValue(":reservationId", $reservationId, PDO::PARAM_INT);
+       $allergiesDatas = $stmtAllergies->execute();
+    
     
 
-    //insertion des données dans la table reservation
-    $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople, userId) 
-    VALUES (:date, :time, :couvert, :userId)";
-    $stmtReservation = $db->prepare($reqReservation);
-    $stmtReservation->bindParam(":date", $date, PDO::PARAM_STR);
-    $stmtReservation->bindParam(":time", $time, PDO::PARAM_STR);
-    $stmtReservation->bindParam(":couvert", $couvert, PDO::PARAM_STR);
-    $stmtReservation->bindParam(":userId", $userId, PDO::PARAM_INT);
+    if($usersDatas === true && $reservationsDatas === true && $allergiesDatas === true){
 
-    var_dump($stmtReservation);
-    
-
-    //insertion des données dans la table allergies
-
-    $reqAllergies = "INSERT INTO allergies (allergies_list, reservationId) VALUES (:allergies, :reservationId)";
-    $stmtAllergies = $db->prepare($reqAllergies);
-    $stmtAllergies->bindValue(":allergies", $allergies, PDO::PARAM_STR);
-    $stmtAllergies->bindValue(":reservationId", $reservationId, PDO::PARAM_INT);
-
-    var_dump($stmtAllergies);
-    
-
-    if($stmtUsers->execute() && $stmtReservation->execute() && $stmtAllergies->execute()){
         echo "Votre réservation a bien été prise en compte";
+
     }else{
+
         echo "Une erreur est survenue";
+
     }
 
 }
