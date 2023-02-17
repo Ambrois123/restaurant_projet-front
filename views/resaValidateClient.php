@@ -65,42 +65,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtGetUserId->execute();
         $userId = $stmtGetUserId->fetch(PDO::FETCH_ASSOC)['user_id'];//retourne un array
 
-    var_dump($userId);
+    echo($userId);
     
     //insertion des données dans la table reservation
-            $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople, userId) 
-            VALUES (:date, :time, :couvert, :userId)";
+            $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople,allergies_list, userId) 
+            VALUES (:date, :time, :couvert, :allergies, :userId)";
             $stmtReservation = $db->prepare($reqReservation);
             $stmtReservation->bindParam(":date", $date, PDO::PARAM_STR);
             $stmtReservation->bindParam(":time", $time, PDO::PARAM_STR);
             $stmtReservation->bindParam(":couvert", $couvert, PDO::PARAM_STR);
+            $stmtReservation->bindParam(":allergies", $allergies, PDO::PARAM_STR);
             $stmtReservation->bindValue(":userId", $userId, PDO::PARAM_INT);
             $reservationsDatas = $stmtReservation->execute();
     
     //  var_dump($userId);
-
-
-    // Requête pour récupérer l'id de la réservation
-        $stmtGetReservationId = $db->prepare("SELECT reservation_id FROM reservation WHERE numberOfPeople = :couvert");
-        $stmtGetReservationId->bindParam(":couvert", $couvert, PDO::PARAM_INT);
-        $stmtGetReservationId->execute();
-        $reservationId =  $stmtGetReservationId->fetch(PDO::FETCH_ASSOC)['reservation_id'];//retourne un array
-    
-       //insertion des données dans la table allergies
-
-       $reqAllergies = "INSERT INTO allergies (allergies_list, reservationId) VALUES (:allergies, :reservationId)";
-       $stmtAllergies = $db->prepare($reqAllergies);
-       $stmtAllergies->bindValue(":allergies", $allergies, PDO::PARAM_STR);
-       $stmtAllergies->bindValue(":reservationId", $reservationId, PDO::PARAM_INT);
-       $allergiesDatas = $stmtAllergies->execute();
     
     }
 
-    if($reservationsDatas === true && $allergiesDatas === true){
+    if($reservationsDatas === true){
 
         //echo "Votre réservation a bien été prise en compte";
 
-        header("Location: ./validateReservations.php");
+        header("Location: ./views/validateReservations.php");
 
     }else{
 

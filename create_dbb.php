@@ -24,17 +24,12 @@ try{
                     reservation_date DATETIME not null,
                     reservation_time TIME not null,
                     numberOfPeople INT(11) not null,
+                    allergies_list VARCHAR(200) not null,
                     statut VARCHAR(20) null,
                     userId INT not null,
                     FOREIGN KEY (userId) REFERENCES users (user_id)
                 
                 )') !==false){
-                    if($serveurRest->exec('CREATE TABLE allergies(
-                        allergies_id INT(11) PRIMARY KEY not null AUTO_INCREMENT,
-                        allergies_list VARCHAR(200) not null,
-                        reservationId INT(11) not null,
-                        FOREIGN KEY (reservationId) REFERENCES reservation (reservation_id)
-                    )') !==false){
                     if($serveurRest->exec('CREATE TABLE restaurant(
                         restaurant_id INT(11) PRIMARY KEY not null AUTO_INCREMENT,
                         maxCapacity INT(11) not null,
@@ -95,13 +90,11 @@ try{
                     }
                     }else{echo "Impossible de créer la table reservation<br>";
                     }
-                }else{echo "Impossible de créer la table use<br>";
+                }else{echo "Impossible de créer la table user<br>";
                 }
             }else{echo "Impossible de créer la table admin<br>";
             }
         }
-
-    }
 
 }catch(PDOException $error){
     die($error->getMessage());

@@ -96,7 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //Déclaration des variables pour les requêtes
     $usersDatas = false;
     $reservationsDatas = false;
-    $allergiesDatas = false;
 
     //exécution des requêtes
     if($isEmptyFields === false && $isFormtCorrect === false){
@@ -118,37 +117,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($userId);
     
     //insertion des données dans la table reservation
-            $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople, userId) 
-            VALUES (:date, :time, :couvert, :userId)";
+            $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople, allergies_list, userId) 
+            VALUES (:date, :time, :couvert, :allergies, :userId)";
             $stmtReservation = $db->prepare($reqReservation);
             $stmtReservation->bindParam(":date", $date, PDO::PARAM_STR);
             $stmtReservation->bindParam(":time", $time, PDO::PARAM_STR);
             $stmtReservation->bindParam(":couvert", $couvert, PDO::PARAM_STR);
+            $stmtReservation->bindValue(":allergies", $allergies, PDO::PARAM_STR);
             $stmtReservation->bindValue(":userId", $userId, PDO::PARAM_INT);
             $reservationsDatas = $stmtReservation->execute();
     
     //  var_dump($userId);
-
-    //  echo gettype($userId);
-    //  echo gettype($stmtGetUserId);
-
-    // Requête pour récupérer l'id de la réservation
-        $stmtGetReservationId = $db->prepare("SELECT reservation_id FROM reservation WHERE numberOfPeople = :couvert");
-        $stmtGetReservationId->bindParam(":couvert", $couvert, PDO::PARAM_INT);
-        $stmtGetReservationId->execute();
-        $reservationId =  $stmtGetReservationId->fetch(PDO::FETCH_ASSOC)['reservation_id'];//retourne un array
-    
-       //insertion des données dans la table allergies
-
-       $reqAllergies = "INSERT INTO allergies (allergies_list, reservationId) VALUES (:allergies, :reservationId)";
-       $stmtAllergies = $db->prepare($reqAllergies);
-       $stmtAllergies->bindValue(":allergies", $allergies, PDO::PARAM_STR);
-       $stmtAllergies->bindValue(":reservationId", $reservationId, PDO::PARAM_INT);
-       $allergiesDatas = $stmtAllergies->execute();
     
     }
 
-    if($usersDatas === true && $reservationsDatas === true && $allergiesDatas === true){
+    if($usersDatas === true && $reservationsDatas === true){
 
         //echo "Votre réservation a bien été prise en compte";
 
