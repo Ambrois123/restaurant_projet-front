@@ -82,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] =="POST") {
     $usersDatas = false;
 
     //Exécution de la requête si tous les champs sont remplis et si le format est correct
-    if ($isEmptyFields === false && $isFormatCorrect === false) {
+    if ($isEmptyFields === false && $isFormatCorrect === false) 
+    {
         $req = "INSERT INTO users (user_name, user_email, user_phone, user_password) 
         VALUES (:username, :email, :phone, :password)";
         $stmt = $db->prepare($req);
@@ -91,6 +92,14 @@ if ($_SERVER['REQUEST_METHOD'] =="POST") {
         $stmt->bindValue(':phone', $phone, PDO::PARAM_STR);
         $stmt->bindValue(':password', $password, PDO::PARAM_STR);
         $usersDatas = $stmt->execute();
+
+        // Requête pour récupérer l'id de l'utilisateur
+
+        $stmtGetUserId = $db->prepare("SELECT user_id FROM users WHERE user_email = :email");
+        $stmtGetUserId->bindParam(":email", $email, PDO::PARAM_STR);
+        $stmtGetUserId->execute();
+        $userId = $stmtGetUserId->fetch(PDO::FETCH_ASSOC)['user_id'];
+
     }
 
     if ($usersDatas === true) {
@@ -155,6 +164,7 @@ function test_input($data) {
 $_SESSION['username'] = $username;
 $_SESSION['email'] = $email;
 $_SESSION['phone'] = $phone;
+$_SESSION['user_id'] = $userId;
 
 ?>
 

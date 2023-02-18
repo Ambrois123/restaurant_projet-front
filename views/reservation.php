@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtGetUserId = $db->prepare("SELECT user_id FROM users WHERE user_email = :email");
         $stmtGetUserId->bindParam(":email", $email, PDO::PARAM_STR);
         $stmtGetUserId->execute();
-        $userId = $stmtGetUserId->fetch(PDO::FETCH_ASSOC)['user_id'];//retourne un array
+        $userId = $stmtGetUserId->fetch(PDO::FETCH_ASSOC)['user_id'];
 
     // var_dump($userId);
     

@@ -5,6 +5,7 @@ ob_start();
 <?php 
 session_start();
 
+
 ?>
 <?php 
 
@@ -14,6 +15,7 @@ require_once '../config/database.php';
 
 $err_couvert = $err_date = $err_time = $err_allergies = "";
 $couvert = $date = $time = $allergies = "";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -50,50 +52,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $allergies = test_input($_POST['allergies']);
     }
 
-    //Déclaration des variables pour les requêtes
-    
-    $reservationsDatas = false;
-    $allergiesDatas = false;
 
     //exécution des requêtes
-    if($isEmptyFields === false && $isFormtCorrect === false){
+    if($isEmptyFields === false){
 
-    // Requête pour récupérer l'id de l'utilisateur
-
-        $stmtGetUserId = $db->prepare("SELECT user_id FROM users WHERE user_email = :email");
-        $stmtGetUserId->bindParam(":email", $email, PDO::PARAM_STR);
-        $stmtGetUserId->execute();
-        $userId = $stmtGetUserId->fetch(PDO::FETCH_ASSOC)['user_id'];//retourne un array
-
-    echo($userId);
+        $userId = $_SESSION['user_id'];
     
     //insertion des données dans la table reservation
-            $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople,allergies_list, userId) 
+            $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople, allergies_list, userId) 
             VALUES (:date, :time, :couvert, :allergies, :userId)";
             $stmtReservation = $db->prepare($reqReservation);
-            $stmtReservation->bindParam(":date", $date, PDO::PARAM_STR);
-            $stmtReservation->bindParam(":time", $time, PDO::PARAM_STR);
-            $stmtReservation->bindParam(":couvert", $couvert, PDO::PARAM_STR);
-            $stmtReservation->bindParam(":allergies", $allergies, PDO::PARAM_STR);
-            $stmtReservation->bindValue(":userId", $userId, PDO::PARAM_INT);
-            $reservationsDatas = $stmtReservation->execute();
-    
-    //  var_dump($userId);
-    
+            $stmtReservation->bindParam(":date", $date);
+            $stmtReservation->bindParam(":time", $time);
+            $stmtReservation->bindParam(":couvert", $couvert);
+            $stmtReservation->bindParam(":allergies", $allergies);
+            $stmtReservation->bindValue(":userId", $userId);
+
+            if($stmtReservation->execute()){
+
+                header('Location: validateReservations.php');
+        
+            }else{
+        
+                header("Location: resaNotValide.php");
+        
+            }
     }
 
-    if($reservationsDatas === true){
-
-        //echo "Votre réservation a bien été prise en compte";
-
-        header("Location: ./views/validateReservations.php");
-
-    }else{
-
-        // echo "";
-        header("Location: resaNotValide.php");
-
-    }
+    
 
 }
 
