@@ -2,10 +2,12 @@
 GET http://localhost/dossier_projet_formation/restaurant_projet-front/mealsRead.php HTTP/1.1
 
 ###
-POST http://localhost/dossier_projet_formation/restaurant_projet-front/mealsCreate.php HTTP/1.1
+POST http://localhost/dossier_projet_formation/models/melasModel.php HTTP/1.1
+Content-Type: application/json
 
 {
     "meals_title": "test",
     "meals_description": "test",
-    "meals_price": 12
+    "meals_price": 12,
+    "meals_image": "test"
 }

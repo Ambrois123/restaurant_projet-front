@@ -10,7 +10,8 @@ session_start();
 require_once '../config/database.php';
 
 //Déclaration des variables avec les données du formulaire
-$err_username = $email = $phone = $password = "";
+$username = $email = $phone = $password = "";
+$role = 'client';
 
 //Déclaration des variables des erreurs
 $err_username = $err_username_format = $err_email = $err_email_format = $err_phone = $err_phone_format = $err_password = $err_password_format = "";
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] =="POST") {
         // Vérification du format du numéro de téléphone
         if (!preg_match('/^[0-9]{10}+$/', $phone)) {
             $err_phone_format = "Numéro de téléphone incorrect.";
-            $isFormtCorrect = true;
+            $isFormatCorrect = true;
         }
     }
 
@@ -69,11 +70,15 @@ if ($_SERVER['REQUEST_METHOD'] =="POST") {
         $isEmptyFields = true;
     } else {
         $password = test_input($_POST['password']);
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
 
         //valider un password fort
-        if (!preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$#", $password)){
+
+        $pwd_pattern = '#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$#';
+        if (!preg_match($pwd_pattern,$password)){
             $err_password_format = "Mot de passe incorrect.";
-            $isFormtCorrect = true;
+            $isFormatCorrect= true;
         } 
         
     }
@@ -84,13 +89,14 @@ if ($_SERVER['REQUEST_METHOD'] =="POST") {
     //Exécution de la requête si tous les champs sont remplis et si le format est correct
     if ($isEmptyFields === false && $isFormatCorrect === false) 
     {
-        $req = "INSERT INTO users (user_name, user_email, user_phone, user_password) 
-        VALUES (:username, :email, :phone, :password)";
+        $req = "INSERT INTO users (user_name, user_email,role, user_phone, user_password) 
+        VALUES (:username, :email, :role, :phone, :password)";
         $stmt = $db->prepare($req);
         $stmt->bindValue(':username', $username, PDO::PARAM_STR);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->bindValue(':role', $role, PDO::PARAM_STR);
         $stmt->bindValue(':phone', $phone, PDO::PARAM_STR);
-        $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $hashed_password, PDO::PARAM_STR);
         $usersDatas = $stmt->execute();
 
         // Requête pour récupérer l'id de l'utilisateur
@@ -103,9 +109,9 @@ if ($_SERVER['REQUEST_METHOD'] =="POST") {
     }
 
     if ($usersDatas === true) {
-        header('Location: ../views/validateClient.php');
+        header('Location: validateClient.php');
     } else {
-        echo "Une erreur est survenue";
+        echo "";
     }
 }
 function test_input($data) {
@@ -128,27 +134,31 @@ function test_input($data) {
                 </p>
             </div>
             <div class="container_client_form">
-                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">   
+                <form action="" method="post">   
                     <label for="username"></label>
-                    <input type="text" id="username" name="username" placeholder="Votre nom et prénom">
+                    <input type="text" id="username" name="username" placeholder="Votre nom et prénom" value="<?php echo $username;?>">
                     <p class="error"><?php echo isset($err_username) ? $err_username: "";?></p>
                     <p class="error"><?php echo isset($err_username_format) ? $err_username_format: "";?></p>
 
                     <label for="email"></label>
-                    <input type="email" id="email" name="email" placeholder="Votre adresse mail">
+                    <input type="email" id="email" name="email" placeholder="Votre adresse mail" value="<?php echo $email;?>">
                     <p class="error"><?php echo isset($err_email) ? $err_email: ""?></p>
                     <p class="error"><?php echo isset($err_email_format) ? $err_email_format: "";?></p>
 
                     <label for="phone"></label>
-                    <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone">
+                    <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone" value="<?php echo $phone;?>">
                     <p class="error"><?php echo isset($err_phone) ? $err_phone: ""?></p>
                     <p class="error"><?php echo isset($err_phone_format) ? $err_phone_format: "";?></p>
 
                     <label for="password"></label>
                     <p class="password">Le mot de passe doit contenir entre 8 et 20 caractères, une majuscule, une minuscule et un chiffre.</p>
-                    <input type="password" id="password" name="password" placeholder="Choisir votre mot de passe">
+                    <input type="password" id="password" name="password" placeholder="Choisir votre mot de passe" value="<?php echo $password;?>">
                     <p class="error"><?php echo isset($err_password) ? $err_password: ""?></p>
                     <p class="error"><?php echo isset($err_password_format) ? $err_password_format: "";?></p>
+
+                    <select name="role" id="role" style="display:none;">
+                        <option value="client">client/option>
+                    </select>
                     
                     
                     

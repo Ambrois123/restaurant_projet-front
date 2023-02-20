@@ -14,8 +14,9 @@ session_start();
 require_once '../config/database.php';
 
 
-$err_username = $err_username_format = $err_email = $err_email_fromat = $err_phone = $err_phone_format = $err_couvert = $err_date = $err_time = $err_allergies = "";
-$username = $email = $phone = $couvert = $date = $time = $allergies = "";
+$err_username = $err_username_format = $err_email = $err_email_format = $err_phone = $err_phone_format = $err_couvert = $err_date =  $err_allergies = "";
+$username = $email = $phone = $couvert = $date =  $allergies = "";
+$role = "visiteur";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -78,16 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }else{
         $date = test_input($_POST['date']);
     }
-    //Vérification du champ time
-    if (empty($_POST['time'])){
-        $err_time = "Veuillez renseigner l'heure";
-        $isEmptyFields = true;
-    }else{
-        $time = test_input($_POST['time']);
-    }
     //Vérification du champ allergies
     if (empty($_POST['allergies'])){
-        $err_allergies = "Veuillez renseigner vos allergies";
+        $err_allergies = "Veuillez renseigner vos allergies. Saissisez 'Aucune' si vous n'en avez pas";
         $isEmptyFields = true;
     }else{
         $allergies = test_input($_POST['allergies']);
@@ -100,10 +94,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //exécution des requêtes
     if($isEmptyFields === false && $isFormtCorrect === false){
      //insertion des données dans la table users
-        $reqUsers = "INSERT INTO users (user_name, user_email, user_phone) VALUES (:username, :email, :phone)";
+        $reqUsers = "INSERT INTO users (user_name, user_email,role, user_phone) 
+        VALUES (:username, :email, :role, :phone)";
         $stmtUsers = $db->prepare($reqUsers);
         $stmtUsers->bindParam(":username", $username, PDO::PARAM_STR);
         $stmtUsers->bindParam(":email", $email, PDO::PARAM_STR);
+        $stmtUsers->bindParam(":role", $role, PDO::PARAM_STR);
         $stmtUsers->bindParam(":phone", $phone, PDO::PARAM_STR);
         $usersDatas = $stmtUsers->execute();
 
@@ -117,11 +113,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($userId);
     
     //insertion des données dans la table reservation
-            $reqReservation = "INSERT INTO reservation (reservation_date, reservation_time, numberOfPeople, allergies_list, userId) 
-            VALUES (:date, :time, :couvert, :allergies, :userId)";
+            $reqReservation = "INSERT INTO reservation (reservation_time, numberGuests, allergies_list, userId) 
+            VALUES (:date, :couvert, :allergies, :userId)";
             $stmtReservation = $db->prepare($reqReservation);
             $stmtReservation->bindParam(":date", $date, PDO::PARAM_STR);
-            $stmtReservation->bindParam(":time", $time, PDO::PARAM_STR);
             $stmtReservation->bindParam(":couvert", $couvert, PDO::PARAM_STR);
             $stmtReservation->bindValue(":allergies", $allergies, PDO::PARAM_STR);
             $stmtReservation->bindValue(":userId", $userId, PDO::PARAM_INT);
@@ -168,36 +163,38 @@ function test_input($data) {
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 
                 <label for="username"></label>
-                <input type="text" id="username" name="username" placeholder="Votre nom et prénom">
+                <input type="text" id="username" name="username" placeholder="Votre nom et prénom" value="<?php echo $username;?>" >
                 
                 <p class="error"><?php echo isset($err_username) ? $err_username: "";?></p>
                 <p class="error"><?php echo isset($err_username_format) ? $err_username_format: "";?></p>
                 
                 
                 <label for="email"></label>
-                <input type="email" id="email" name="email" placeholder="Votre adresse mail">
+                <input type="email" id="email" name="email" placeholder="Votre adresse mail" value="<?php echo $email;?>"  >
                 <p class="error"><?php echo isset($err_email) ? $err_email: ""?></p>
                 <p class="error"><?php echo isset($err_email_format) ? $err_email_format: "";?></p>
 
                 <label for="phone"></label>
-                <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone">
+                <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone" value="<?php echo $phone;?>"  >
                 <p class="error"><?php echo isset($err_phone) ? $err_phone: ""?></p>
                 <p class="error"><?php echo isset($err_phone_format) ? $err_phone_format: "";?></p>
                  
                 <label for="couvert"></label>
-                <input type="number" min="0" id="couvert" name="couvert" placeholder="Nombre de couverts">
+                <input type="number" min="0" id="couvert" name="couvert" placeholder="Nombre de couverts" value="<?php echo $couvert;?>"  >
                 <p class="error"><?php echo isset($err_couvert) ? $err_couvert: "";?></p>
                 
                 
-                <input type="date" id="date" name="date">
+                <input type="datetime-local" id="date" name="date" value="<?php echo $date;?>"  >
                 <p class="error"><?php echo isset($err_date) ? $err_date: "";?></p>
 
-                <input type="time" id="time" name="time">
-                <p class="error"><?php echo isset($err_time) ? $err_time: "";?></p>
-
                 
-                <textarea name="allergies" id="allergies" cols="4" rows="4" placeholder="Des allergies ?"></textarea>
+                <textarea name="allergies" id="allergies" cols="4" rows="4" placeholder="Des allergies ?" value="<?php echo $allergies;?>" ></textarea>
                 <p class="error"><?php echo isset($err_allergies) ? $err_allergies: "";?></p>
+
+                <select name="role" id="role" style="display:none;">
+                    <option value="visiteur">visiteur</option>
+                </select>
+
                 <div class="reservation_btn">
                     <input type="submit" name="reservation_btn" value="Réserver">
                 </div>
@@ -213,7 +210,6 @@ $_SESSION['username'] = $username;
 $_SESSION['email'] = $email;
 $_SESSION['phone'] = $phone;
 $_SESSION['date'] = $date;
-$_SESSION['time'] = $time;
 $_SESSION['couverts'] = $couvert;
 $_SESSION['allergies'] = $allergies;
 

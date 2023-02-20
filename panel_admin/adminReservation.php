@@ -9,6 +9,7 @@
       <th scope="col">Couverts</th>
       <th scope="col">date & heure</th>
       <th scope="col">Allergies</th>
+      <th scope="col">statut</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
       <td>Column content</td>
       <td>Column content</td>
       <td>Column content</td>
+      <td>column content</td>
       <td>Column content</td>
       <td>
         <button type="button" class="btn btn-warning">Modifier</button>
